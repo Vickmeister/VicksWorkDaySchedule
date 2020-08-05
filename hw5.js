@@ -22,8 +22,9 @@ function hourChange(){
     }
 })
 }
+
 hourChange()
-var updateTime = setInterval(hourUpdater, 15000);
+var updateTime = setInterval(hourChange, 15000);
 $("#hour-9 .description").val(localStorage.getItem("hour-9"))
 $("#hour-10 .description").val(localStorage.getItem("hour-10"))
 $("#hour-11 .description").val(localStorage.getItem("hour-11"))
