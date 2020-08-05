@@ -1,88 +1,38 @@
-let currentDay = { "9AM": "10AM": "11AM": "12PM": "1PM": "2PM": "3PM": "4PM": "5PM"};
+$(document).ready(function(){
+$(".saveBtn").on("click", function(){
+    var value = $(this).siblings(".description").val()
+    var time = $(this).parent().attr("id")
+    localStorage.setItem(time, value)
+}) 
 
-$(document).ready(function()){
-    if(!localStorage.getItem('currentDay'))
-    {
-        updateCalendarTasks(currentDay)
-    }
-} else 
-
-{
-    updateCalendarTasks(JSON.parse(localStorage.getItem('currentDay')));
-}
-
-$('#date-today h6').text(moment().format('dddd') + ", " + moment().format('MMMM Do YYYY, h:mm:ss a'));
-
-let counter = 1;
-for (currentDay){
-    let textBox = "#textbox" + counter
-    let timeName = "#timename" + counter
-    let timeString = $(timename).text()
-    let currentHour = moment().hour()
-    let timeHour = specificHour(timeString)
-    $(textBox).text(workDay[property])
-    
-    if(timeHour < currentHour){
-        $(textBox).addClass("past-hour");
+function hourChange(){
+    var currentHour = moment().hours();
+    $(".time-block").each(function(){
+        var compareHour = parseInt($(this).attr("id").split("-")[1]);
+        if(compareHour < currentHour){
+            $(this).addClass("past")
+        } else if(compareHour === currentHour){
+            $(this).removeClass("past");
+            $(this).addClass("present");
         }
-        else if (timeHour > currentHour);
-        {
-        $(textEntry).addClass("future-hour");
-        }
-        else {
-        $(textEntry).addClass("present-hour");
-        }
-        counter ++;
+       else{
+            $(this).removeClass("past");
+            $(this).removeClass("present");
+            $(this).addClass("future");
     }
-}
-
-$("button").onclick(function()){
-    value = $(this).siblings(textsection).val();
-    hourString = $(this).siblings("div").text();
-    saveSchedule(hourString, value);
-}
-
-function specificHour(timeHour){
-    switch(hourString){
-        case "9AM": return 9;
-        case "10AM": return 10;
-        case "11AM": return 11;
-        case "12PM": return 12;
-        case "1PM": return 1;
-        case "2PM": return 2;
-        case "3PM": return 3;
-        case "4PM": return 4;
-        case "5PM": return 5;
-    }
-}
-
-//FUNCTIONS
-function saveTimes() {
-    result = localStorage.getItem('currentDay');
-    return (result ? result : currentDay);
-}
-
-function localStorage() {
-    localStorage.setItem('currentDay', JSON.stringify(currentDay));
-}
-// CONTINUE FROM HERE  
-function saveToLocalStorage(actionDay) {
-localStorage.setItem('currentDay', JSON.stringify(actionDay));
-}
-  
-function saveSchedule(hours, action) {
-if(!localStorage.getItem('currentDay') {
-initializeLocalStorage();
-}
-  
-let dayTime = JSON.parse(localStorage.getItem('currentDay'));
-dayTime[hours] = action
-saveToLocalStorage(dayTime);
-}
-  
-function recordDayTasks(dayTask) {
-$(".calendar-row").each(function(index) {
-let res = $(this).children("div");
-$(this).children("textarea").text(dayTask[res.text()]);
 })
 }
+hourChange()
+var updateTime = setInterval(hourUpdater, 15000);
+$("#hour-9 .description").val(localStorage.getItem("hour-9"))
+$("#hour-10 .description").val(localStorage.getItem("hour-10"))
+$("#hour-11 .description").val(localStorage.getItem("hour-11"))
+$("#hour-12 .description").val(localStorage.getItem("hour-12"))
+$("#hour-13 .description").val(localStorage.getItem("hour-13"))
+$("#hour-14 .description").val(localStorage.getItem("hour-14"))
+$("#hour-15 .description").val(localStorage.getItem("hour-15"))
+$("#hour-16 .description").val(localStorage.getItem("hour-16"))
+$("#hour-17 .description").val(localStorage.getItem("hour-17"))
+
+$("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
+})
